@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gesture Volume Control Web App</title>
 
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+<header>
+    <h1>Gesture Based Volume Control Web App</h1>
+    <p>Control system volume using hand gestures</p>
+</header>
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+<div class="dashboard">
+
+    <!-- ================= CAMERA PANEL ================= -->
+    <div class="card camera-card">
+        <h3>Camera Feed</h3>
+
+        <img id="videoFeed" src="/video" alt="Camera Stream">
+
+        <p class="volume-text">
+            System Volume:
+            <span id="volumeText">--%</span>
+           <!--(<span id="volumeState">--</span>)-->
+        </p>
+
+        <!-- CALIBRATION BUTTONS -->
+
+        <!-- CALIBRATION BUTTONS -->
+<div class="btn-group">
+    <button class="btn calibrate" id="startCalBtn">
+        Start Calibration
+    </button>
+
+    <button class="btn stop-calibration" id="stopCalBtn">
+        Stop Calibration
+    </button>
+
+    <button class="btn" id="resetCalBtn">
+        Reset
+    </button>
+
+    <button class="btn" id="defaultCalBtn">
+        Default
+    </button>
+</div>
+
+
+        <!-- CALIBRATION BADGE -->
+        <span id="calibrationBadge" class="calibration-badge hidden">
+            🔴 Calibration Active
+        </span>
+    </div>
+
+    <!-- ================= METRICS PANEL ================= -->
+    <div class="card metrics-card">
+        <h3>Live Metrics</h3>
+
+        <div class="metric">
+            Distance <span id="distanceText">-- px</span>
+        </div>
+
+        <div class="metric">
+            Volume <span id="volumeMetric">-- %</span>
+        </div>
+
+        <div class="metric">
+            Min Hands <span>1</span>
+        </div>
+
+        <div class="metric">
+            FPS <span id="fpsText">--</span>
+        </div>
+
+        <div class="metric">
+            Connection
+            <span class="status online">ONLINE</span>
+
+        </div>
+        <!-- DISTANCE BAR HEADER -->
+<div class="distance-header">
+    <span class="distance-title">Distance Range</span>
+    <span id="volumeState" class="volume-badge">--</span>
+</div>
+
+<!-- DISTANCE VISUAL BAR -->
+<div class="distance-bar">
+    <div id="distanceFill"></div>
+</div>
+
+
+        <!-- ========== CALIBRATION STATUS ========== -->
+        <div class="calibration-status">
+            <h4>Calibration Status</h4>
+
+            <p id="calibrationStatus">
+                Calibration not started
+            </p>
+
+            <div class="metric">
+                MIN Distance
+                <span id="minValue">-- px</span>
+            </div>
+
+            <div class="metric">
+                MAX Distance
+                <span id="maxValue">-- px</span>
+            </div>
+        </div>
+
+        <!-- TOAST NOTIFICATION -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <!-- ================= INSTRUCTIONS ================= -->
+    <div class="card instruction-card">
+        <h3>How to Calibrate</h3>
+
+        <div class="steps">
+            <div class="step">
+                <span class="step-icon">✋</span>
+                <div>
+                    <h4>Keep Hand Visible</h4>
+                    <p>Ensure your hand is fully inside the camera frame.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-icon">🤏</span>
+                <div>
+                    <h4>Start Close</h4>
+                    <p>Bring thumb and index finger very close together.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-icon">↔️</span>
+                <div>
+                    <h4>Move Apart Slowly</h4>
+                    <p>Gradually increase the distance between fingers.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-icon">⏹</span>
+                <div>
+                    <h4>Stop Calibration</h4>
+                    <p>Click <b>Stop Calibration</b> once full range is covered.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h4>Best Practices</h4>
+            <ul>
+                <li>💡 Use bright and even lighting</li>
+                <li>🖐 Keep background simple</li>
+                <li>🐢 Move fingers slowly for accuracy</li>
+                <li>📏 Use full finger range</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<!-- ================= GRAPH ================= -->
+<div class="card graph-card">
+    <h3>Volume Trend</h3>
+    <canvas id="volChart"></canvas>
+</div>
+
+<!-- =====================================================
+     SCRIPT
+===================================================== -->
+<script src="/static/script.js"></script>
+
+</body>
+</html>
